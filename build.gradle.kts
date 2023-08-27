@@ -17,20 +17,22 @@ plugins {
 group = "dev.frilly"
 version = "0.1-SNAPSHOT"
 
-val shade by configurations.creating {
-    extendsFrom(configurations.runtimeClasspath.get())
-}
-
 repositories {
     mavenCentral()
     mavenLocal()
     maven("https://hub.spigotmc.org/nexus/content/repositories/snapshots")
 }
 
-dependencies {
-    testImplementation(kotlin("test"))
+tasks.withType<Test>().configureEach {
+    useJUnitPlatform()
+}
 
-    shade("org.ow2.asm:asm:9.5")
+dependencies {
+    testImplementation("io.kotest:kotest-runner-junit5:5.6.2")
+    testImplementation("io.kotest:kotest-assertions-core:5.6.2")
+    testImplementation("io.kotest:kotest-property:5.6.2")
+
+    implementation("org.ow2.asm:asm:9.5")
     implementation("org.scala-lang:scala3-library_3:3.3.1-RC6")
     implementation("org.apache.groovy:groovy:4.0.14")
     implementation("org.bukkit:bukkit:1.8-R0.1-SNAPSHOT")
@@ -48,8 +50,12 @@ val javadocJar by tasks.register<Jar>("javadocJar") {
 }
 
 tasks.shadowJar {
-    configurations = listOf(shade)
     isZip64 = true
+    configurations = emptyList()
+    dependencies {
+        dependency("org.ow2.asm:asm:9.5")
+    }
+
     relocate("org.ow2.asm", "dev.frilly.hikarilib.asm")
     archiveClassifier.set("shaded")
     minimize()
