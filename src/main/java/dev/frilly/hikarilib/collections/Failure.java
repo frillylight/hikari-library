@@ -48,4 +48,9 @@ public final class Failure<T> implements Attempt<T> {
         return throwable;
     }
 
+    @Override
+    public @NonNull Property<T> toProperty() {
+        return Property.of(value);
+    }
+    
 }

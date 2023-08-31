@@ -1,5 +1,6 @@
 package dev.frilly.hikarilib.collections;
 
+import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 
 /**
@@ -32,4 +33,9 @@ public final class Success<T> implements Attempt<T> {
         return null;
     }
 
+    @Override
+    public @NonNull Property<T> toProperty() {
+        return Property.of(value);
+    }
+    
 }

@@ -1,7 +1,8 @@
 package dev.frilly.hikarilib.collections;
 
-import org.jetbrains.annotations.Nullable;
 import dev.frilly.hikarilib.exceptions.FailedAccessException;
+import lombok.NonNull;
+import org.jetbrains.annotations.Nullable;
 
 /**
  * Represents a generic attempt at getting a value.
@@ -39,5 +40,13 @@ public interface Attempt<T> {
      */
     @Nullable
     Throwable getException();
+
+    /**
+     * Gets the value wrapped in a property.
+     *
+     * @return the property with the value wrapped, if there is none, this is an empty property.
+     */
+    @NonNull
+    Property<T> toProperty();
 
 }
