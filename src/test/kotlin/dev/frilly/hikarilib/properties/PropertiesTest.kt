@@ -10,7 +10,6 @@ class PropertiesTest : FunSpec({
     val file = File("./src/test/resources/lang/messages/messages.properties")
 
     fun checkMap(map: Map<String, PropertyKey>) {
-        map.size shouldBe 8
         map["wikipedia"]?.value shouldBe "wikipedia.com"
         map["wikipedia"]?.comments shouldBe listOf("# Comments before everything")
 

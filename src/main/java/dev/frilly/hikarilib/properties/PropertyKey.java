@@ -12,8 +12,8 @@ import java.util.List;
 @Getter
 public class PropertyKey {
 
-    public String key;
-    public String value;
-    public List<String> comments;
+    String key;
+    String value;
+    List<String> comments;
 
 }
